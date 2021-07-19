@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Crowdin Text Extractor - Receiver 2</title>
+<style>
+    #in, #out, #outNormal {  height: 320px; width: 100%; }
+</style>
+</head>
+<body>
+
+<h1>Crowdin Text Extractor</h1>
+
+<p>Clean Crowdin HTML to text.</p>
+
+<textarea id="in" oninput="clean()"></textarea><br>
+<textarea id="out"></textarea><br>
+<textarea id="outNormal"></textarea>
+
+<script>
+
+function clean() {
+    var txtIn  = document.getElementById("in").value;
+	
+	const regex1 = /</gm;
+	txtIn = txtIn.replace(regex1, "\n<");
+	
+	const regex2 = /<[^>]*>?/gm;
+	txtIn = txtIn.replace(regex2, ' ');
+	
+	txtTwo = txtIn;
+	
+	const regex3 = /\n\s*\n\s*\n/g;
+	txtIn = txtIn.replace(regex3, ' ').trim();
+	
+	const regex4 = /\n/g;
+	txtIn = txtIn.replace(regex4, ' ').trim();
+	
+	const regex5 = /\. */g
+	txtIn = txtIn.replace(regex5, '.\n\n').trim();
+
+	document.getElementById("out").value = txtIn;
+	
+	// keeping newlines as they are
+	
+	const regex6 = /\n \n /g;
+	txtTwo = txtTwo.replace(regex6, '\n').trim();
+
+	document.getElementById("outNormal").value = txtTwo;
+}
+</script>
+</body>
+</html>
